@@ -15,8 +15,8 @@ class FraudActor extends Actor with ActorLogging {
         // SAVE THE ORDER INTO THE DATABASE
         fraudDetectionDatabaseService.saveFraudDetectionRecord(order)
       }
-      else { // If order already exists
-
+      else {
+        // IN THIS CASE IF THE FraudRecordEntry already exists then we will call fail email service of Akshay
       }
 
 
