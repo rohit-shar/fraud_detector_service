@@ -15,35 +15,44 @@ import objects.FraudActor.OrderRequestReceiveCommand
 import spray.json._
 
 import scala.concurrent.ExecutionContext.Implicits.global
+  // import actorSystem.dispatcher
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
 object FaultDetectorServiceApp extends App with OrderJsonProtocol {
 
-  import scala.concurrent.ExecutionContext.Implicits.global
-
+  // Initialize Actor System, Materializer, and Timeout
   implicit val actorSystem = ActorSystem("FaultDetectorActorSystem")
   implicit val actorMaterializer = ActorMaterializer()
   implicit val timeout = Timeout.durationToTimeout(2 seconds)
+
+  // Bind the HTTP server to localhost on port 8080
   val serverSource = Http().bind("localhost", 8080)
+
+  // Create the Fraud Actor
   val fraudActor = actorSystem.actorOf(Props[FraudActor])
 
-  import actorSystem.dispatcher
-
-  //   REQUEST HANDLER
+  // Define a handler for incoming HTTP requests
   val faultDetectorController: HttpRequest => Future[HttpResponse] = {
     case HttpRequest(HttpMethods.POST, Uri.Path("/fraud-detect"), _, entity, _) =>
+      // Extract the JSON content from the request entity
       val strictEntity = entity.toStrict(3 seconds)
       val jsonContentFuture = strictEntity.map(myEntity => myEntity.data.utf8String)
-      val responseFuture = jsonContentFuture.map { // getting the guitar future
+
+      // Parse the JSON content into an Order object
+      val responseFuture = jsonContentFuture.map {
         jsonContent =>
           jsonContent.parseJson.convertTo[Order]
       }
+
+      // Process the Order and send a message to the Fraud Actor
       responseFuture.map {
         order =>
           // CODE OF INTERNAL LOGIC
           fraudActor ? OrderRequestReceiveCommand(order.orderNumber, order)
+
+          // Respond with a success message in the HTTP response
           HttpResponse(
             StatusCodes.OK,
             entity = HttpEntity(
@@ -58,13 +67,11 @@ object FaultDetectorServiceApp extends App with OrderJsonProtocol {
       }
   }
 
-  // CONNECTION SINK RECEIVER
+  // Define a sink to handle incoming connections
   val connectionSink = Sink.foreach[IncomingConnection] {
     incomingConnection => incomingConnection.handleWithAsyncHandler(faultDetectorController)
   }
 
-  // LINKING THE REQUET SOURCE WITH SINK
+  // Link the server source to the connection sink to start the server
   serverSource.to(connectionSink).run()
-
-
 }
