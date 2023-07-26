@@ -16,18 +16,19 @@ object UUIDFormat extends JsonFormat[UUID] {
   }
 }
 
+/*
+Below code is for unmarshelling
+* */
 trait OrderJsonProtocoal extends DefaultJsonProtocol {
   implicit val uuid = UUIDFormat
   implicit val cartItemJsonFormat = jsonFormat11(OrderModels.CartItem)
   implicit val billingShippingAddressJsonFormat = jsonFormat8(OrderModels.BillingShippingAddress)
   implicit val paymentInfoJsonFormat = jsonFormat4(OrderModels.PaymentInfo)
   implicit val shipToGroupJsonFormat = jsonFormat22(OrderModels.ShipToGroup)
-  implicit val shipingAddressPerItemJsonFormat = jsonFormat2(OrderModels.ShippingAddressPerItem)
+  implicit val shippingAddressPerItemJsonFormat = jsonFormat2(OrderModels.ShippingAddressPerItem)
   implicit val httpDataFormat = jsonFormat2(OrderModels.HttpData)
   implicit val cartEntry = jsonFormat19(OrderModels.CartEntry)
   implicit val cartJsonFormat = jsonFormat6(OrderModels.Cart)
   implicit val paymentResponseJsonFormat = jsonFormat11(OrderModels.PaymentResponse)
   implicit val orderJsonFormat = jsonFormat21(OrderModels.Order)
-
-
 }

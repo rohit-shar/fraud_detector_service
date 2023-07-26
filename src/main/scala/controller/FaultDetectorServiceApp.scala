@@ -43,8 +43,7 @@ object FaultDetectorServiceApp extends App with OrderJsonProtocoal {
       responseFuture.map {
         order =>
           // CODE OF INTERNAL LOGIC
-          fraudActor ? OrderRequestReceiveCommand(order.orderNumber, order.toJson.prettyPrint)
-
+          fraudActor ? OrderRequestReceiveCommand(order.orderNumber, order)
           HttpResponse(
             StatusCodes.OK,
             entity = HttpEntity(
