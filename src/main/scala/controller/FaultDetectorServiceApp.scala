@@ -9,7 +9,7 @@ import akka.pattern.ask
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Sink
 import akka.util.Timeout
-import json.OrderJsonProtocoal
+import json.OrderJsonProtocol
 import model.OrderModels.Order
 import objects.FraudActor.OrderRequestReceiveCommand
 import spray.json._
@@ -19,7 +19,7 @@ import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
-object FaultDetectorServiceApp extends App with OrderJsonProtocoal {
+object FaultDetectorServiceApp extends App with OrderJsonProtocol {
 
   import scala.concurrent.ExecutionContext.Implicits.global
 

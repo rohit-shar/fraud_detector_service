@@ -17,9 +17,9 @@ object UUIDFormat extends JsonFormat[UUID] {
 }
 
 /*
-Below code is for unmarshelling
+Below code is for unmarshalling
 * */
-trait OrderJsonProtocoal extends DefaultJsonProtocol {
+trait OrderJsonProtocol extends DefaultJsonProtocol {
   implicit val uuid = UUIDFormat
   implicit val cartItemJsonFormat = jsonFormat11(OrderModels.CartItem)
   implicit val billingShippingAddressJsonFormat = jsonFormat8(OrderModels.BillingShippingAddress)
