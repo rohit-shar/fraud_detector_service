@@ -18,7 +18,7 @@ class FraudDetectionDatabaseService {
 
   def saveFraudDetectionRecord(order: Order): Unit = {
     val connection = getConnection()
-    val preparedStatement = connection.prepareStatement("insert into fraud_detector_table values (?,?,?,?,?,?,?,?,?)")
+    val preparedStatement = connection.prepareStatement("insert into fraud_detector_table (userId,orderId,orderNum,emailId,siftStatus,siftScore,hitCount,createdDate,editDate) values (?,?,?,?,?,?,?,?,?)")
     preparedStatement.setString(1, order.user_id)
     preparedStatement.setString(2, order.order_id.toString)
     preparedStatement.setString(3, order.orderNumber)

@@ -48,11 +48,11 @@ object FaultDetectorServiceApp extends App with OrderJsonProtocoal {
             StatusCodes.OK,
             entity = HttpEntity(
               ContentTypes.`application/json`,
-              """
-                |{
-                |"Message":"SAVED THE GUITAR RECORD SUCCESSFULY"
-                |}
-                |""".stripMargin
+              s"""
+                 |{
+                 |"Message":"FraudService Received order verification request. Order number is : ${order.orderNumber}"
+                 |}
+                 |""".stripMargin
             )
           )
       }

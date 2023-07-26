@@ -3,7 +3,7 @@ package database
 import java.sql.{Connection, DriverManager}
 
 object DatabaseConnection {
-  val url = "jdbc:mysql://127.0.0.1:3306/fraud_detector_database"
+  val url = "jdbc:mysql://localhost/fraud_detector_database"
   val driver = "com.mysql.cj.jdbc.Driver"
   val username = "root"
   val password = "password"
