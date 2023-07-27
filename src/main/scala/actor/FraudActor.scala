@@ -16,13 +16,16 @@ class FraudActor extends Actor with ActorLogging {
         try {
           fraudDetectionDatabaseService.saveFraudDetectionRecord(order)
           log.info(s"Order $orderNumber saved successfully.")
+          sender() ! orderNumber
         } catch {
           case ex: Exception =>
             log.error(s"Failed to save order $orderNumber: ${ex.getMessage}")
+            sender() ! None
           // You can handle the error here, such as sending a failure response back
         }
       } else {
         log.warning(s"Order $orderNumber already exists in the database.")
+        sender() ! None
         // You can handle this scenario as needed, such as sending a duplicate order response back
       }
   }

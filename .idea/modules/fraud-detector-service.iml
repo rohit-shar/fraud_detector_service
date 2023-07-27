@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="fraud_detector_service [file:/home/java/fraud_detector_service/]" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="SBT" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="fraud-detector-service [file:/home/java/Desktop/fraud-detector-service/]" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="SBT" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
     <output url="file://$MODULE_DIR$/../../target/scala-2.13/classes" />
     <output-test url="file://$MODULE_DIR$/../../target/scala-2.13/test-classes" />
@@ -11,10 +11,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="sbt: scala-sdk-2.13.11" level="project" />
     <orderEntry type="library" name="sbt: ch.qos.logback:logback-classic:1.4.8:jar" level="project" />
     <orderEntry type="library" name="sbt: ch.qos.logback:logback-core:1.4.8:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.google.protobuf:protobuf-java:3.21.9:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.mysql:mysql-connector-j:8.0.33:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.google.code.gson:gson:2.7:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.siftscience:sift-java:3.2.0:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.squareup.okhttp3:okhttp:3.4.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.squareup.okio:okio:1.9.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.akka:akka-actor_2.13:2.8.2:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.akka:akka-http-core_2.13:10.5.2:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.akka:akka-http-spray-json_2.13:10.5.2:jar" level="project" />
@@ -29,6 +32,8 @@
     <orderEntry type="library" name="sbt: com.typesafe:ssl-config-core_2.13:0.6.1:jar" level="project" />
     <orderEntry type="library" name="sbt: com.zaxxer:HikariCP:4.0.3:jar" level="project" />
     <orderEntry type="library" name="sbt: io.spray:spray-json_2.13:1.3.6:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.checkerframework:checker-qual:3.5.0:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.postgresql:postgresql:42.5.4:jar" level="project" />
     <orderEntry type="library" name="sbt: org.reactivestreams:reactive-streams:1.0.4:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scala-lang.modules:scala-collection-compat_2.13:2.8.1:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scala-lang.modules:scala-java8-compat_2.13:1.0.0:jar" level="project" />
