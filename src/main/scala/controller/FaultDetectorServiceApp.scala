@@ -5,6 +5,7 @@ import akka.actor.{ActorSystem, Props}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.Http.IncomingConnection
 import akka.http.scaladsl.model._
+import akka.http.scaladsl.server.Directives._
 import akka.pattern.ask
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Sink
@@ -31,6 +32,16 @@ object FaultDetectorServiceApp extends App with OrderJsonProtocol {
 
   // Create the Fraud Actor
   val fraudActor = actorSystem.actorOf(Props[FraudActor])
+
+  val faultDetectorRauteController =
+    path("/fraud-detect"){
+      post{
+
+      }
+    }
+
+
+
 
   // Define a handler for incoming HTTP requests
   val faultDetectorController: HttpRequest => Future[HttpResponse] = {

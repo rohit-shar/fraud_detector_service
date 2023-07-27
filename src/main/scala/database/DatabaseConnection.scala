@@ -4,8 +4,8 @@ import java.sql.{Connection, DriverManager}
 
 object DatabaseConnection {
   // Database connection parameters
-  private val url = "jdbc:mysql://localhost/fraud_detector_database"
-  private val driver = "com.mysql.cj.jdbc.Driver"
+  private val url = "jdbc:postgresql://localhost/fraud_detector_database"
+  private val driver = "org.postgresql.Driver"
   private val username = "root"
   private val password = "password"
   private var connection: Connection = _
