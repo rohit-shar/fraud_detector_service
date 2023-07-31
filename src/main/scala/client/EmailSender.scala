@@ -15,8 +15,8 @@ object EmailSender extends OrderJsonProtocol {
   implicit val actorMaterializer = ActorMaterializer()
   implicit val DUPLICATE_ORDER = "duplicateOrder"
 
-  def sendFailEmailDuplicateOrder(): Future[HttpResponse] = {
-    Http().singleRequest(HttpRequest(uri = EMAIL_SERVICE_URL + DUPLICATE_ORDER,
+  def sendFailEmail(orderStatus: String): Future[HttpResponse] = {
+    Http().singleRequest(HttpRequest(uri = EMAIL_SERVICE_URL + orderStatus,
       method = HttpMethods.GET
     )
     );

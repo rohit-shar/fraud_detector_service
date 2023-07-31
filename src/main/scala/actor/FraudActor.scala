@@ -1,14 +1,19 @@
 package actor
 
 
-import akka.actor.{Actor, ActorLogging}
+import Entity.CreateOrderResponse
+import actor.OrderResponseDecisionActor.{OrderAccepted, OrderDeclined, OrderReview}
+import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
+import akka.pattern.ask
+import client._
 import database.FraudDetectionDatabaseService
 import objects.FraudActor._
-import client._
+import service.SiftScienceEventService
+import akka.util.Timeout
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.{Failure, Success}
-import service.SiftScienceEventService
+import scala.concurrent.duration.DurationInt
+import scala.language.postfixOps
 
 /**
  * An advanced level FraudActor that processes incoming OrderRequestReceiveCommand messages.
@@ -20,6 +25,9 @@ class FraudActor extends Actor with ActorLogging {
   // Create an instance of the FraudDetectionDatabaseService
   private val fraudDetectionDatabaseService = new FraudDetectionDatabaseService()
   var customerUUID = null
+  var system = ActorSystem()
+  var orderResponseDecisionActor = system.actorOf(Props[OrderResponseDecisionActor])
+  implicit val timeout = Timeout.durationToTimeout(2 seconds)
 
   /**
    * Defines the behavior of the actor when it receives messages.
@@ -39,7 +47,21 @@ class FraudActor extends Actor with ActorLogging {
           // Respond to the sender with the orderNumber to indicate successful processing
           // FIRST CALL THE CUSTOMER UUID API IF ITS NOT NULL, THEN WE NEED TO CALL THE SIFT API
           val siftScienceEventService = new SiftScienceEventService()
-          val orderResponse = siftScienceEventService.createOrderEvent(order)
+          val orderResponse: CreateOrderResponse = siftScienceEventService.createOrderEvent(order)
+
+          if (orderResponse != null && orderResponse.exception == null) {
+            log.info("RECEIVED THE ORDER RESPONSE")
+            if (siftScienceEventService.fraudResponse.orderStatus.equals("DECLINED")) {
+              orderResponseDecisionActor ? OrderDeclined(orderResponse)
+            }
+            else if (siftScienceEventService.fraudResponse.orderStatus.equals("REVIEW")) {
+              orderResponseDecisionActor ? OrderReview(orderResponse)
+            }
+            else if (siftScienceEventService.fraudResponse.orderStatus.equals("ACCEPTED")) {
+              orderResponseDecisionActor ? OrderAccepted(orderResponse)
+            }
+          }
+
 
           sender() ! orderNumber
         } catch {
@@ -53,7 +75,7 @@ class FraudActor extends Actor with ActorLogging {
         // If the order already exists in the database, inform the sender
         log.warning(s"Order $orderNumber already exists in the database.")
         // Respond to the sender with None to indicate that the order is a duplicate
-        var futureResponse = EmailSender.sendFailEmailDuplicateOrder()
+        var futureResponse = EmailSender.sendFailEmail("duplicateOrder")
         futureResponse.map { response =>
           if (response.status == 200)
             log.info("Successfully sent email")
