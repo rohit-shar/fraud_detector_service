@@ -17,6 +17,7 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "42.5.4",
   "com.typesafe.slick" %% "slick" % "3.4.1",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.4.1",
-  "com.siftscience" % "sift-java" % "3.2.0"
+  "com.siftscience" % "sift-java" % "3.2.0",
+  "net.liftweb" %% "lift-json" % "3.5.0"
 
 )

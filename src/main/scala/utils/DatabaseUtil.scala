@@ -1,4 +1,4 @@
-package util
+package utils
 
 object DatabaseUtil {
   final val FRAUD_DETECTOR_RECORD_INSERT_QUERY = "insert into fraud_detector_table (userId,orderId,orderNum,emailId,siftStatus,siftScore,hitCount,createdDate,editDate) values (?,?,?,?,?,?,?,?,?)"

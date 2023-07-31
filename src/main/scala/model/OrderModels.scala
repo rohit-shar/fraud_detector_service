@@ -146,4 +146,9 @@ object OrderModels {
 
   case class Orders(orders: List[Order])
 
+  object PaymentGateway {
+    val ADYEN = "Adyen"
+    val AUTHORISE_NET = "Authorise.Net"
+    val PAYPAL = "Paypal"
+  }
 }

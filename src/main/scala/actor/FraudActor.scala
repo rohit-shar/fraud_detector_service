@@ -8,6 +8,7 @@ import client._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
+import service.SiftScienceEventService
 
 /**
  * An advanced level FraudActor that processes incoming OrderRequestReceiveCommand messages.
@@ -36,7 +37,9 @@ class FraudActor extends Actor with ActorLogging {
           fraudDetectionDatabaseService.saveFraudDetectionRecord(order)
           log.info(s"Order $orderNumber saved successfully.")
           // Respond to the sender with the orderNumber to indicate successful processing
-
+          // FIRST CALL THE CUSTOMER UUID API IF ITS NOT NULL, THEN WE NEED TO CALL THE SIFT API
+          val siftScienceEventService = new SiftScienceEventService()
+          val orderResponse = siftScienceEventService.createOrderEvent(order)
 
           sender() ! orderNumber
         } catch {

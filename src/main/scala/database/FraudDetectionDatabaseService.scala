@@ -4,7 +4,7 @@ import Entity.FraudDetectorTableEntity
 import database.DatabaseConnection._
 import model.FraudResponse
 import model.OrderModels.Order
-import util.DatabaseUtil._
+import utils.DatabaseUtil._
 
 import java.sql.{Connection, Date}
 
