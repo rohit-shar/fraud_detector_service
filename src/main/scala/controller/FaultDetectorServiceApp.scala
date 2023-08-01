@@ -25,12 +25,10 @@ import scala.language.postfixOps
 
 object FaultDetectorServiceApp extends App with OrderJsonProtocol with SprayJsonSupport {
 
-  // Initialize Actor System, Materializer, and Timeout
   implicit val actorSystem = ActorSystem("FaultDetectorActorSystem")
   implicit val actorMaterializer = ActorMaterializer()
   implicit val timeout = Timeout.durationToTimeout(2 seconds)
 
-  // Create the Fraud Actor
   val fraudActor = actorSystem.actorOf(Props[FraudActor])
 
   val faultDetectorRouteController = {

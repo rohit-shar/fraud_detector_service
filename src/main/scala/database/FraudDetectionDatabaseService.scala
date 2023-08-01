@@ -70,14 +70,14 @@ class FraudDetectionDatabaseService {
   }
 
   // Below methode is used for updating sift status and sift score of existing fraud record
-  def updateExistingFraudEntryRecord(orderNumber: String, fraudResponse: FraudResponse): Int = {
+  def updateExistingFraudEntryRecord(fraudResponse: FraudResponse): Int = {
     try {
       val connection = getConnection()
       val preparedStatement = connection.prepareStatement(FRAUD_RECORD_SIFT_STATUS_UPDATE_QUERY)
       preparedStatement.setDouble(1, fraudResponse.avg_score)
       preparedStatement.setString(2, fraudResponse.orderStatus)
       preparedStatement.setDate(3, new Date(System.currentTimeMillis()))
-      preparedStatement.setString(4, orderNumber)
+      preparedStatement.setString(4, fraudResponse.orderNumber)
       val updatedCount = preparedStatement.executeUpdate()
       updatedCount
     }

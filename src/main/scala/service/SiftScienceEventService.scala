@@ -1,6 +1,6 @@
 package service
 
-import Entity.CreateOrderResponse
+import Entity.{CreateOrderResponse, FraudDetectionStates}
 import akka.event.jul.Logger
 import com.siftscience.exception.SiftException
 import com.siftscience.model._
@@ -152,13 +152,13 @@ class SiftScienceEventService {
     var fraudResponse = new FraudResponse(order.user_id, order.order_id.toString, order.orderNumber, order.emailId, null, orderResponse.avgScore, orderResponse.score, order, orderResponse.exception)
     if (orderResponse.avgScore > 94.0) {
 
-      fraudResponse.orderStatus = "DECLINED"
+      fraudResponse.orderStatus = FraudDetectionStates.ORDER_DENIED
     }
     else if (orderResponse.avgScore > 45.0) {
-      fraudResponse.orderStatus = "REVIEW"
+      fraudResponse.orderStatus = FraudDetectionStates.ORDER_DENIED
     }
     else {
-      fraudResponse.orderStatus = "ACCEPTED"
+      fraudResponse.orderStatus = FraudDetectionStates.ORDER_ACCEPTED
     }
     fraudResponse
   }
