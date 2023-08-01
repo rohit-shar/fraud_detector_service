@@ -16,11 +16,13 @@ import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
 //"localhost:8082/api/sendEmail"
-object EmailSender extends OrderJsonProtocol {
+object EmailSender extends OrderJsonProtocol with DefaultJsonProtocol {
   implicit val actorSystem = ActorSystem("FaultDetectorActorSystem")
   implicit val actorMaterializer = ActorMaterializer()
   implicit val DUPLICATE_ORDER = "duplicateOrder"
-  implicit val timeout = Timeout.durationToTimeout(2 seconds)
+  implicit val timeout = Timeout.durationToTimeout(5 seconds)
+
+  import actorSystem.dispatcher
 
   def sendFailEmail(orderFailedMail: OrderFailedMail): Future[HttpResponse] = {
     Http().singleRequest(HttpRequest(uri = EMAIL_SERVICE_URL,
