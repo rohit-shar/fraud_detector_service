@@ -1,6 +1,6 @@
 package json
 
-import Entity.OrderFailedMail
+import Entity.{FraudServiceResponseEntity, OrderFailedMail}
 import spray.json._
 import model._
 
@@ -33,4 +33,5 @@ trait OrderJsonProtocol extends DefaultJsonProtocol {
   implicit val paymentResponseJsonFormat = jsonFormat11(OrderModels.PaymentResponse)
   implicit val orderJsonFormat = jsonFormat21(OrderModels.Order)
   implicit val orderFailedMailJsonFormat = jsonFormat9(OrderFailedMail)
+  implicit val fraudServiceResponseEntity = jsonFormat1(FraudServiceResponseEntity)
 }

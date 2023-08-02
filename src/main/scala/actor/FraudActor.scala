@@ -45,7 +45,6 @@ class FraudActor extends Actor with ActorLogging {
 
         fraudDetectionDatabaseService.saveFraudDetectionRecord(order)
         log.info(s"Order $orderNumber saved successfully.")
-
         val orderResponse: CreateOrderResponse = siftScienceEventService.createOrderEvent(order)
         if (orderResponse != null && orderResponse.exception == null) {
           log.info("RECEIVED THE ORDER RESPONSE")
@@ -56,9 +55,11 @@ class FraudActor extends Actor with ActorLogging {
             orderResponseDecisionActor ? OrderReview(siftScienceEventService.fraudResponse)
           }
           else if (siftScienceEventService.fraudResponse.orderStatus.equals(FraudDetectionStates.ORDER_ACCEPTED)) {
-            var response = (orderResponseDecisionActor ? OrderAccepted(siftScienceEventService.fraudResponse)).mapTo[OrderAccepted]
+            orderResponseDecisionActor ? OrderAccepted(siftScienceEventService.fraudResponse)
           }
-
+        }
+        else {
+          orderResponseDecisionActor ? SiftFailureResponse(siftScienceEventService.fraudResponse)
         }
         sender() ! orderNumber
       }

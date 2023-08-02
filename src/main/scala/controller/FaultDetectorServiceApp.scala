@@ -1,5 +1,6 @@
 package controller
 
+import Entity.FraudServiceResponseEntity
 import actor.FraudActor
 import akka.actor.Status.Failure
 import akka.actor.{ActorSystem, Props}
@@ -39,25 +40,25 @@ object FaultDetectorServiceApp extends App with OrderJsonProtocol with SprayJson
 
           complete(orderReceivedResponse.map { orderNumber =>
             orderNumber match {
-              case None => HttpResponse(
-                StatusCodes.BadRequest,
-                entity = HttpEntity(
-                  ContentTypes.`application/json`,
-                  s"""
-                     |"Message": "The fraud record is already present for order number : ${orderRequest.orderNumber}"
-                     |""".stripMargin
+              case None =>
+                var fraudServiceResponse: FraudServiceResponseEntity = FraudServiceResponseEntity(s"""Message": "The fraud record is already present for order number : ${orderRequest.orderNumber}""")
+                HttpResponse(
+                  StatusCodes.BadRequest,
+                  entity = HttpEntity(
+                    ContentTypes.`application/json`,
+                    fraudServiceResponse.toJson.prettyPrint
+                  )
                 )
-              )
 
-              case orderNumber => HttpResponse(
-                StatusCodes.OK,
-                entity = HttpEntity(
-                  ContentTypes.`application/json`,
-                  s"""
-                     |"Message": "FraudService Received order verification request. Order number is : ${orderNumber}"
-                     |""".stripMargin
+              case orderNumber =>
+                var fraudResponse: FraudServiceResponseEntity = FraudServiceResponseEntity(s"""Message": "FraudService Received order verification request. Order number is : ${orderNumber}""")
+                HttpResponse(
+                  StatusCodes.OK,
+                  entity = HttpEntity(
+                    ContentTypes.`application/json`,
+                    fraudResponse.toJson.prettyPrint
+                  )
                 )
-              )
 
             }
           })
