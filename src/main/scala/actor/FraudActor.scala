@@ -63,6 +63,8 @@ class FraudActor extends Actor with ActorLogging {
         }
         sender() ! orderNumber
       }
+
+
       else {
         log.info(s"DUPLICATE ORDER REQUEST RECEIVED FOR ORDER NUMBER #$orderNumber")
         log.warning(s"Order $orderNumber already exists in the database.")

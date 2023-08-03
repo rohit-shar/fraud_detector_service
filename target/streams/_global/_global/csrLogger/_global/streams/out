@@ -1,7 +1,2 @@
-[debug] downloaded https://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.13/2.8.3/akka-slf4j_2.13-2.8.3.pom
-[debug] downloaded https://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.13/2.8.3/akka-slf4j_2.13-2.8.3.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.13/2.8.3/akka-actor_2.13-2.8.3.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.13/2.8.3/akka-actor_2.13-2.8.3-sources.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.13/2.8.3/akka-slf4j_2.13-2.8.3-sources.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.13/2.8.3/akka-slf4j_2.13-2.8.3-javadoc.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.13/2.8.3/akka-actor_2.13-2.8.3-javadoc.jar
+[debug] downloaded https://repo1.maven.org/maven2/io/circe/circe-core_2.13/0.9.2/circe-core_2.13-0.9.2.pom
+[debug] downloaded https://repo1.maven.org/maven2/io/circe/circe-core_2.13/0.9.2/circe-core_2.13-0.9.2.pom.sha1

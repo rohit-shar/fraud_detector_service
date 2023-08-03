@@ -29,7 +29,6 @@ object FaultDetectorServiceApp extends App with OrderJsonProtocol with SprayJson
   implicit val actorSystem = ActorSystem("FaultDetectorActorSystem")
   implicit val actorMaterializer = ActorMaterializer()
   implicit val timeout = Timeout.durationToTimeout(2 seconds)
-
   val fraudActor = actorSystem.actorOf(Props[FraudActor])
 
   val faultDetectorRouteController = {

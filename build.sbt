@@ -1,3 +1,4 @@
+
 version := "0.1.0-SNAPSHOT"
 scalaVersion := "2.12.8"
 name := "fraud-detector-service"
@@ -19,6 +20,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick-hikaricp" % "3.4.1",
   "com.siftscience" % "sift-java" % "3.2.0",
   "net.liftweb" %% "lift-json" % "3.5.0",
-  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5"
-
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
+  "com.typesafe.play" %% "twirl-api" % "1.4.2"
 )
+
+

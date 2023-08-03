@@ -1,8 +1,9 @@
 package json
 
 import Entity.{FraudServiceResponseEntity, OrderFailedMail}
-import spray.json._
+import model.OrderModels.{CartEntryDetail, SuccessOrderEmailRequest}
 import model._
+import spray.json._
 
 import java.util.UUID
 
@@ -21,6 +22,7 @@ object UUIDFormat extends JsonFormat[UUID] {
 Below code is for unmarshalling
 * */
 trait OrderJsonProtocol extends DefaultJsonProtocol {
+
   implicit val uuid = UUIDFormat
   implicit val cartItemJsonFormat = jsonFormat11(OrderModels.CartItem)
   implicit val billingShippingAddressJsonFormat = jsonFormat8(OrderModels.BillingShippingAddress)
@@ -34,4 +36,7 @@ trait OrderJsonProtocol extends DefaultJsonProtocol {
   implicit val orderJsonFormat = jsonFormat21(OrderModels.Order)
   implicit val orderFailedMailJsonFormat = jsonFormat9(OrderFailedMail)
   implicit val fraudServiceResponseEntity = jsonFormat1(FraudServiceResponseEntity)
+  implicit val cartDetails = jsonFormat7(CartEntryDetail)
+  implicit val successEmailJsonProtocoal = jsonFormat22(SuccessOrderEmailRequest)
+
 }

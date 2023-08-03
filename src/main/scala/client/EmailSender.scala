@@ -11,6 +11,7 @@ import spray.json._
 
 import scala.concurrent.Future
 import akka.util.Timeout
+import model.OrderModels.SuccessOrderEmailRequest
 
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
@@ -30,6 +31,17 @@ object EmailSender extends OrderJsonProtocol with DefaultJsonProtocol {
       entity = HttpEntity(
         ContentTypes.`application/json`,
         orderFailedMail.toJson.prettyPrint
+      )
+    )
+    );
+  }
+
+  def sendAcceptedEmail(orderAcceptedMail: SuccessOrderEmailRequest): Future[HttpResponse] = {
+    Http().singleRequest(HttpRequest(uri = EMAIL_SERVICE_URL,
+      method = HttpMethods.POST,
+      entity = HttpEntity(
+        ContentTypes.`application/json`,
+        orderAcceptedMail.toJson.prettyPrint
       )
     )
     );

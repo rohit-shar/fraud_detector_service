@@ -1,5 +1,6 @@
 package model
 
+import java.util
 import java.util.UUID
 
 object OrderModels {
@@ -70,6 +71,14 @@ object OrderModels {
                        primaryId: String = ""
                       )
 
+  case class CartEntryDetail(var image: String,
+                             var title: String,
+                             var price: String,
+                             var quantity: String,
+                             var productUrl: String,
+                             var partNumber: String,
+                             var coreDeposit: String)
+
 
   case class Cart(var cart_id: UUID,
                   var user_id: String,
@@ -79,6 +88,31 @@ object OrderModels {
                   var core_deposit_total: Double)
 
   // customField3 is used as alt contact number
+
+  case class SuccessOrderEmailRequest(var mailto: String,
+                                      var mailfrom: String,
+                                      var mailcc: String,
+                                      var mailbcc: String,
+                                      var subject: String,
+                                      var name: String,
+                                      var orderErrorMessage: String,
+                                      var orderNumber: String,
+                                      var cart: List[CartEntryDetail],
+                                      var subTotal: String,
+                                      var saleTax: String,
+                                      var shippingCost: String,
+                                      var total: String,
+                                      var phoneNumber: String,
+                                      var address: String,
+                                      var city: String,
+                                      var state: String,
+                                      var zip: String,
+                                      var country: String,
+                                      var coreDepositTotal: String,
+                                      var creditCardLastFourDigits: String,
+                                      var creditCardType: String)
+
+
   case class ShipToGroup(var customerUUID: String,
                          var shipToGroupUUID: String,
                          var name: String,
