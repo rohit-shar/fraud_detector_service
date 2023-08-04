@@ -1,7 +1,7 @@
 package json
 
 import Entity.{FraudServiceResponseEntity, OrderFailedMail}
-import model.OrderModels.{CartEntryDetail, SuccessOrderEmailRequest}
+import model.OrderModels.{CartEntryDetail, FraudApplicationResponse, SuccessOrderEmailRequest}
 import model._
 import spray.json._
 
@@ -38,5 +38,5 @@ trait OrderJsonProtocol extends DefaultJsonProtocol {
   implicit val fraudServiceResponseEntity = jsonFormat1(FraudServiceResponseEntity)
   implicit val cartDetails = jsonFormat7(CartEntryDetail)
   implicit val successEmailJsonProtocoal = jsonFormat22(SuccessOrderEmailRequest)
-
+  implicit val fraudApplicationResponseFormat = jsonFormat3(FraudApplicationResponse)
 }

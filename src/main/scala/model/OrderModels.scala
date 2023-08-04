@@ -180,6 +180,8 @@ object OrderModels {
 
   case class Orders(orders: List[Order])
 
+  case class FraudApplicationResponse(var message: String, var orderStatus: String, var emailStatus: String)
+
   object PaymentGateway {
     val ADYEN = "Adyen"
     val AUTHORISE_NET = "Authorise.Net"
